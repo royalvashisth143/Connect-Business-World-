@@ -930,7 +930,7 @@ function clientApp() {
         panel().innerHTML = `<div class="flex flex-wrap items-center justify-between gap-2 mb-4">
           <h1 class="text-xl font-bold">${titles[k]} <span class="text-xs text-slate-400 font-normal">(${(data[k] || []).length})</span></h1>
           <div class="flex gap-2"><input id="flt" placeholder="Search…" class="border rounded-lg px-3 py-1.5 text-xs">
-          ${can(k, 'add') ? `<button data-act="add" data-k="${k}" class="bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-700"><i class="fa-solid fa-plus mr-1"></i>Add</button>` : ''}</div></div>
+          ${(can(k, 'add') || (k === 'products' && (isAdm() || isVen()))) ? `<button data-act="add" data-k="${k}" class="bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-700"><i class="fa-solid fa-plus mr-1"></i>Add Product</button>` : ''}
         <div class="bg-white border rounded-xl overflow-x-auto shadow-sm"><table class="w-full text-xs"><thead class="bg-slate-50 text-left text-slate-500"><tr>${COLS[k].map(c => `<th class="p-2">${c[1]}</th>`).join('')}<th class="p-2">Actions</th></tr></thead><tbody id="tb">${rowsHtml(k)}</tbody></table></div>`;
         document.getElementById('flt').addEventListener('input', e => { filter = e.target.value; document.getElementById('tb').innerHTML = rowsHtml(k); });
     }
